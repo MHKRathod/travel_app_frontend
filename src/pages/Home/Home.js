@@ -13,18 +13,22 @@ export const Home = () => {
     const [testData, setTestData] = useState([]);
     const [hotels, setHotels] = useState([]);
     const { hotelCategory } = useCategory();
+    console.log({"before api": hotelCategory})
 
    useEffect(() => {
     (async () => {
         try {
             const {data}= await axios.get(`https://apptravel-36748aa3fc07.herokuapp.com/api/hotels?category=${hotelCategory}`);
-           
+            console.log({"the dta in api":`https://apptravel-36748aa3fc07.herokuapp.com/api/hotels?category=${hotelCategory}`})
+            console.log({"the data inside the useeffect":data})
+          
             setTestData(data);
             setHotels(data ? data.slice(0, 16) : []);
         }
         catch(err) {
-            console.log(err)
+            console.log({"the error is ":err})
         }
+        console.log({"after api": hotelCategory})
         
     })()
    },[hotelCategory])

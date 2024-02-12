@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {BrowserRouter as Router} from "react-router-dom";
 import { CategoryProvider } from './context/category-context';
 import App from './App';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <CategoryProvider>
-      <App />
-    </CategoryProvider>
-  </React.StrictMode>,
+   
+    <Router>
+      <CategoryProvider>
+              <App />
+      </CategoryProvider>
+    </Router>,
+
   document.getElementById('root')
+
 );
 
 
