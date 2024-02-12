@@ -1,11 +1,13 @@
-import {Home} from "../src/pages/index";
+import {Route,Routes} from "react-router-dom";
+import {Home,SingleHotel} from "../src/pages/index";
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <Home/>
-    </div>
+   <Routes>
+    <Route path="/" element={<Home/>}/>
+      <Route path="/hotels/:name/:state/:id" element={<SingleHotel/>}/>
+   </Routes>
   );
 }
 
