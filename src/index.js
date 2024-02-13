@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router} from "react-router-dom";
-import { CategoryProvider } from './context/category-context';
+import { CategoryProvider,DateProvider } from './context/index';
 import App from './App';
 
 ReactDOM.render(
    
     <Router>
       <CategoryProvider>
+        <DateProvider>
               <App />
+        </DateProvider>
       </CategoryProvider>
     </Router>,
 
