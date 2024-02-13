@@ -1,8 +1,8 @@
 import { Fragment,useEffect,useState } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-import {Navbar,HotelCard,Categories} from "../../component/index";
-import { useCategory } from "../../context/index";
+import {Navbar,HotelCard,Categories,SearchStayWithDate} from "../../component/index";
+import { useCategory, useDate } from "../../context/index";
 import "./Home.css";
 
 
@@ -13,6 +13,7 @@ export const Home = () => {
     const [testData, setTestData] = useState([]);
     const [hotels, setHotels] = useState([]);
     const { hotelCategory } = useCategory();
+    const {isSearchModalOpen} = useDate();
     console.log({"before api": hotelCategory})
 
    useEffect(() => {
@@ -70,6 +71,10 @@ export const Home = () => {
             ) : (
                 <></>
             )}
+            {
+                isSearchModalOpen && <SearchStayWithDate />
+            }
+
         </Fragment>
     );
 };

@@ -4,3 +4,6 @@ export {Categories} from '../component/Categories/Categories';
 export {HotelImages} from '../component/HotelImages/HotelImages';
 export {HotelDetails} from "../component/HotelDetails/HotelDetails";
 export {FinalPrice} from "../component/FinalPrice/FinalPrice";
+export {DateSelector} from "../component/DateSelector/DateSelector";
+export {SearchStayWithDate} from "../component/SearchStayWithDate/SearchStayWithDate";
+export {Alert} from "../component/Alert/Alert";
