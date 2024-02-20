@@ -1,8 +1,9 @@
 import { Fragment,useEffect,useState } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-import {Navbar,HotelCard,Categories,SearchStayWithDate} from "../../component/index";
-import { useCategory, useDate } from "../../context/index";
+import {Navbar,HotelCard,Categories,SearchStayWithDate,Filter} from "../../component/index";
+import { useCategory, useDate,useFilter } from "../../context/index";
+import { getHotelsByPrice,getHotelsByRoomsAndBeds,getHotelsByPropertyType,getHotelsByRatings } from "../../utils/index";
 import "./Home.css";
 
 
@@ -14,6 +15,10 @@ export const Home = () => {
     const [hotels, setHotels] = useState([]);
     const { hotelCategory } = useCategory();
     const {isSearchModalOpen} = useDate();
+    const{isFilterModalOpen,priceRange, noOfBathrooms,
+        noOfBedrooms,
+        noOfBeds,propertyType,traveloRating} = useFilter();
+
     console.log({"before api": hotelCategory})
 
    useEffect(() => {
@@ -51,6 +56,22 @@ export const Home = () => {
       }, 1000);
     };
 
+    const filteredHotelsByPrice = getHotelsByPrice(hotels, priceRange);
+    const filteredHotelsByBedsAndRooms = getHotelsByRoomsAndBeds(
+        filteredHotelsByPrice,
+        noOfBathrooms,
+        noOfBedrooms,
+        noOfBeds
+      );
+      const filteredHotelsByPropertyType = getHotelsByPropertyType(
+        filteredHotelsByBedsAndRooms,
+        propertyType
+      );
+      
+  const filteredHotelsByRatings = getHotelsByRatings(
+    filteredHotelsByPropertyType,
+    traveloRating
+  );
     return (
         <Fragment>
             <Navbar />
@@ -64,8 +85,8 @@ export const Home = () => {
                     endMessage={<p className="alert-text">you have seen all</p>}
                 >
                     <main className="main d-flex align-center wrap gap-larger">
-                        {hotels &&
-                            hotels.map((hotel) => <HotelCard key={hotel._id} hotel={hotel} />)}
+                        {filteredHotelsByBedsAndRooms &&
+                            filteredHotelsByBedsAndRooms.map((hotel) => <HotelCard key={hotel._id} hotel={hotel} />)}
                     </main>
                 </InfiniteScroll>
             ) : (
@@ -73,6 +94,9 @@ export const Home = () => {
             )}
             {
                 isSearchModalOpen && <SearchStayWithDate />
+            }
+            {
+                isFilterModalOpen && <Filter/>
             }
 
         </Fragment>

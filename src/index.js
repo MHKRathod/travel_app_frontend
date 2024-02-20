@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter as Router} from "react-router-dom";
-import { CategoryProvider,DateProvider } from './context/index';
+import { CategoryProvider,DateProvider, FilterProvider } from './context/index';
 import App from './App';
 
 ReactDOM.render(
@@ -9,7 +9,9 @@ ReactDOM.render(
     <Router>
       <CategoryProvider>
         <DateProvider>
+          <FilterProvider>
               <App />
+          </FilterProvider>
         </DateProvider>
       </CategoryProvider>
     </Router>,
